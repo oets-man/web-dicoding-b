@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
 :root {
 	--title: rgb(56, 70, 50);
 }
@@ -8,10 +10,8 @@
 	box-sizing: border-box;
 }
 
-body,
-input,
-button {
-	font-family: "Open Sans", sans-serif;
+body {
+	font-family: "Ubuntu", sans-serif;
 }
 
 input,
@@ -22,20 +22,27 @@ button {
 header {
 	text-align: center;
 	padding: 12px;
-	background-color: ivory;
+	background-color: whitesmoke;
 	margin-bottom: 16px;
 }
 .header-title {
 	color: var(--title);
+	margin-bottom: 16px;
 }
 
 .search-box {
 	max-width: 40%;
+	box-shadow: 0 0 0 1px rgb(53 72 91 / 7%), 0 2px 2px rgb(0 0 0 / 1%),
+		0 4px 4px rgb(0 0 0 / 2%), 0 10px 8px rgb(0 0 0 / 3%),
+		0 15px 15px rgb(0 0 0 / 3%), 0 30px 30px rgb(0 0 0 / 4%),
+		0 70px 65px rgb(0 0 0 / 5%);
+	padding: 10px 20px;
+	background-color: ivory;
+	border-radius: 5px;
 	margin: auto;
 }
 
 .search-form {
-	margin-top: 16px;
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr auto;
@@ -45,7 +52,7 @@ header {
 	padding: 8px;
 	border-radius: 5px;
 	border-color: darkgray;
-	border-width: 2px;
+	border-width: 1px;
 }
 
 body {

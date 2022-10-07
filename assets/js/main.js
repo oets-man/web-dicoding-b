@@ -15,11 +15,11 @@ const title = document.getElementById("book-title");
 const author = document.getElementById("book-author");
 const publisher = document.getElementById("book-publisher");
 const year = document.getElementById("book-year");
-const isComplete = document.getElementById("book-iscomplete");
+const isRead = document.getElementById("book-isread");
 const isFavorite = document.getElementById("book-isfavorite");
 
 document.addEventListener(RENDER_EVENT, function () {
-	const obj = books.filter(function (v, i) {
+	const object = books.filter(function (v, i) {
 		if (
 			v.title.toLowerCase().indexOf(search.value.toLowerCase()) >= 0 ||
 			v.author.toLowerCase().indexOf(search.value.toLowerCase()) >= 0 ||
@@ -28,24 +28,24 @@ document.addEventListener(RENDER_EVENT, function () {
 			return true;
 		} else false;
 	});
-	if (obj.length == 0) {
+	if (object.length == 0) {
 		Swal.fire({
 			icon: "error",
 			title: "Oops...",
 			text: "Tidak ada data untuk ditampilkan.",
 		});
 	} else {
-		renderBooks(obj);
+		renderBooks(object);
 	}
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-	// modalShow();
+	// showModal();
 	//check storage
 	if (isStorageExist()) loadDataFromStorage();
 
 	//form input
-	const submitForm = document.getElementById("inputBook");
+	const submitForm = document.getElementById("input-book");
 	submitForm.addEventListener("submit", function (event) {
 		event.preventDefault();
 		saveBook();
@@ -65,17 +65,17 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 
 	//add new complete
-	const addBookComplete = document.getElementById("add-book-a");
-	addBookComplete.addEventListener("click", function () {
+	const addBookRead = document.getElementById("add-book-a");
+	addBookRead.addEventListener("click", function () {
 		showModal();
-		clearInput(false);
+		clearInputForm(false);
 	});
 
 	//add new uncomplete
-	const addBookUncomplete = document.getElementById("add-book-b");
-	addBookUncomplete.addEventListener("click", function () {
+	const addBookUnread = document.getElementById("add-book-b");
+	addBookUnread.addEventListener("click", function () {
 		showModal();
-		clearInput(true);
+		clearInputForm(true);
 	});
 });
 
@@ -118,7 +118,7 @@ function generateBookObject(
 	author,
 	publisher,
 	year,
-	isComplete,
+	isRead,
 	isFavorite
 ) {
 	return {
@@ -127,13 +127,13 @@ function generateBookObject(
 		author,
 		publisher,
 		year,
-		isComplete,
+		isRead,
 		isFavorite,
 	};
 }
 
 function saveBook() {
-	//validasi tahun
+	// validasi
 	if (year.value.length != 4) {
 		Swal.fire({
 			icon: "error",
@@ -150,7 +150,7 @@ function saveBook() {
 		old.author = author.value;
 		old.publisher = publisher.value;
 		old.year = year.value;
-		old.isComplete = isComplete.checked;
+		old.isRead = isRead.checked;
 		old.isFavorite = isFavorite.checked;
 		statusSave = 0;
 	} else {
@@ -161,7 +161,7 @@ function saveBook() {
 			author.value,
 			publisher.value,
 			year.value,
-			isComplete.checked,
+			isRead.checked,
 			isFavorite.checked
 		);
 		books.push(bookObject);
@@ -171,16 +171,16 @@ function saveBook() {
 	saveDataStorage();
 }
 
-function clearInput(check = false) {
+function clearInputForm(check = false) {
 	id.value = "";
 	title.value = "";
 	author.value = "";
 	publisher.value = "";
 	year.value = "";
 	if (check) {
-		isComplete.checked = true;
+		isRead.checked = true;
 	} else {
-		isComplete.checked = false;
+		isRead.checked = false;
 	}
 }
 
@@ -189,7 +189,7 @@ function saveDataStorage(message = true) {
 		const parsed = JSON.stringify(books);
 		localStorage.setItem(STORAGE_KEY, parsed);
 
-		modalHide();
+		hideModal();
 		if (message) {
 			let text;
 			if (statusSave == 0) {
@@ -210,16 +210,16 @@ function saveDataStorage(message = true) {
 }
 
 function renderBooks(obj) {
-	const completed = document.getElementById("table-complete");
-	completed.innerHTML = "";
+	const read = document.getElementById("table-read");
+	read.innerHTML = "";
 
-	const uncompleted = document.getElementById("table-uncomplete");
-	uncompleted.innerHTML = "";
+	const unread = document.getElementById("table-unread");
+	unread.innerHTML = "";
 
 	for (const bookItem of obj) {
 		const bookElement = makeBook(bookItem);
-		if (!bookItem.isComplete) uncompleted.append(bookElement);
-		else completed.append(bookElement);
+		if (!bookItem.isRead) unread.append(bookElement);
+		else read.append(bookElement);
 	}
 }
 
@@ -268,7 +268,7 @@ function deleteBook(id) {
 	});
 }
 
-function completeBook(id, updateTo) {
+function isReadBook(id, updateTo) {
 	const target = findBook(id);
 	if (target == null) return;
 
@@ -287,9 +287,9 @@ function completeBook(id, updateTo) {
 	}).then((result) => {
 		if (result.isConfirmed) {
 			if (updateTo) {
-				target.isComplete = true;
+				target.isRead = true;
 			} else {
-				target.isComplete = false;
+				target.isRead = false;
 			}
 			document.dispatchEvent(new Event(RENDER_EVENT));
 			saveDataStorage(false);
@@ -303,7 +303,7 @@ function completeBook(id, updateTo) {
 	});
 }
 
-function favoriteBook(id, updateTo) {
+function isFavoriteBook(id, updateTo) {
 	const target = findBook(id);
 	if (target == null) return;
 
@@ -347,9 +347,7 @@ function editBook(idBook) {
 	author.value = target.author;
 	publisher.value = target.publisher;
 	year.value = target.year;
-	target.isComplete
-		? (isComplete.checked = true)
-		: (isComplete.checked = false);
+	target.isRead ? (isRead.checked = true) : (isRead.checked = false);
 
 	target.isFavorite
 		? (isFavorite.checked = true)
@@ -371,29 +369,29 @@ function makeBook(objBook) {
 	iPublisher.innerText = objBook.publisher;
 	iYear.innerText = objBook.year;
 
-	const btnComplete = document.createElement("button");
-	btnComplete.classList.add("btn", "btn-success", "btn-action"); //tak perlu
-	if (objBook.isComplete) {
-		btnComplete.innerHTML = "<i class='bi bi-check-circle-fill'></i>";
-		btnComplete.addEventListener("click", function () {
-			completeBook(objBook.id, false);
+	const btnRead = document.createElement("button");
+	btnRead.classList.add("btn", "btn-success", "btn-action"); //tak perlu
+	if (objBook.isRead) {
+		btnRead.innerHTML = "<i class='fa-solid fa-circle-check'></i>";
+		btnRead.addEventListener("click", function () {
+			isReadBook(objBook.id, false);
 		});
 	} else {
-		btnComplete.innerHTML = "<i class='bi bi-check-circle'></i>";
-		btnComplete.addEventListener("click", function () {
-			completeBook(objBook.id, true);
+		btnRead.innerHTML = "<i class='fa-regular fa-circle-check'></i>";
+		btnRead.addEventListener("click", function () {
+			isReadBook(objBook.id, true);
 		});
 	}
 
 	const btnEdit = document.createElement("button");
-	btnEdit.innerHTML = "<i class='bi bi-pencil-square'></i>";
+	btnEdit.innerHTML = "<i class='fa-solid fa-pen-to-square'></i>";
 	btnEdit.classList.add("btn", "btn-warning", "btn-action");
 	btnEdit.addEventListener("click", function () {
 		editBook(objBook.id);
 	});
 
 	const btnDelete = document.createElement("button");
-	btnDelete.innerHTML = '<i class="bi bi-trash-fill"></i>';
+	btnDelete.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
 	btnDelete.classList.add("btn", "btn-danger", "btn-action");
 	btnDelete.addEventListener("click", function () {
 		deleteBook(objBook.id);
@@ -402,17 +400,17 @@ function makeBook(objBook) {
 	const btnFavorite = document.createElement("button");
 	btnFavorite.classList.add("btn", "btn-primary", "btn-action");
 	if (objBook.isFavorite) {
-		btnFavorite.innerHTML = "<i class='bi bi-heart-fill'></i>";
+		btnFavorite.innerHTML = "<i class='fa-solid fa-heart'></i>";
 		btnFavorite.addEventListener("click", function () {
-			favoriteBook(objBook.id, false);
+			isFavoriteBook(objBook.id, false);
 		});
 	} else {
-		btnFavorite.innerHTML = "<i class='bi bi-heart'></i>";
+		btnFavorite.innerHTML = "<i class='fa-regular fa-heart'></i>";
 		btnFavorite.addEventListener("click", function () {
-			favoriteBook(objBook.id, true);
+			isFavoriteBook(objBook.id, true);
 		});
 	}
-	iButton.append(btnComplete, btnEdit, btnDelete, btnFavorite);
+	iButton.append(btnRead, btnEdit, btnDelete, btnFavorite);
 
 	tr.append(iTitle, iAuthor, iPublisher, iYear, iButton);
 	tr.setAttribute("id", `book-${objBook.id}`);

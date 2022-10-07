@@ -34,9 +34,16 @@
 		<title>MyLibrary</title>
 
 		<link rel="stylesheet" href="assets/css/app.css" />
-		<link
+		<!-- <link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+		/> -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
 		/>
 	</head>
 	<body>
@@ -58,10 +65,10 @@
 					/>
 					<div class="btn-group-inline">
 						<button type="submit" class="btn btn-primary">
-							<i class="bi bi-search"></i> Cari
+							<i class="fa-solid fa-magnifying-glass"></i> Cari
 						</button>
 						<button type="reset" class="btn btn-danger" id="reset-search">
-							<i class="bi bi-arrow-clockwise"></i> Reset
+							<i class="fa-solid fa-rotate-left"></i> Reset
 						</button>
 					</div>
 				</form>
@@ -74,7 +81,7 @@
 					<div class="card-header">
 						<h2>Belum Selesai Dibaca</h2>
 						<button type="button" class="btn btn-success" id="add-book-a">
-							<i class="bi bi-plus-square"></i> Tambah
+							<i class="fa-regular fa-plus"></i> Tambah
 						</button>
 					</div>
 					<div id="" class="card-body">
@@ -84,9 +91,9 @@
 								<th>Penulis</th>
 								<th>Penerbit</th>
 								<th>Tahun</th>
-								<th>Aksi</th>
+								<th></th>
 							</thead>
-							<tbody id="table-uncomplete"></tbody>
+							<tbody id="table-unread"></tbody>
 						</table>
 					</div>
 				</section>
@@ -95,7 +102,7 @@
 					<div class="card-header">
 						<h2>Sudah Selesai Dibaca</h2>
 						<button type="button" class="btn btn-success" id="add-book-b">
-							<i class="bi bi-plus-square"></i> Tambah
+							<i class="fa-regular fa-plus"></i> Tambah
 						</button>
 					</div>
 					<div id="" class="card-body">
@@ -105,60 +112,60 @@
 								<th>Penulis</th>
 								<th>Penerbit</th>
 								<th>Tahun</th>
-								<th>Aksi</th>
+								<th></th>
 							</thead>
-							<tbody id="table-complete"></tbody>
+							<tbody id="table-read"></tbody>
 						</table>
 					</div>
 				</section>
 			</div>
-
-			<div class="modal" id="modal" data-animation="slideInOutTop">
-				<div class="modal-dialog">
-					<form action="" id="inputBook">
-						<div class="modal-header">
-							<h2 id="modal-title">Input Data</h2>
-						</div>
-						<div class="modal-content">
-							<input type="hidden" id="book-id" value="" />
-							<div class="input">
-								<label for="book-title">Judul</label>
-								<input id="book-title" type="text" value="" required />
-							</div>
-							<div class="input">
-								<label for="book-author">Penulis</label>
-								<input id="book-author" type="text" value="" required />
-							</div>
-							<div class="input">
-								<label for="book-publisher">Penerbit</label>
-								<input id="book-publisher" type="text" value="" required />
-							</div>
-							<div class="input">
-								<label for="book-year">Tahun</label>
-								<input id="book-year" type="number" value="" required />
-							</div>
-							<div class="input-inline">
-								<label for="book-iscomplete">Selesai dibaca</label>
-								<input id="book-iscomplete" type="checkbox" />
-								<input id="book-isfavorite" type="checkbox" hidden />
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button class="btn btn-success d-right" type="submit">
-								<i class="bi bi-save"></i> Simpan
-							</button>
-							<button
-								class="btn btn-danger d-right"
-								type="button"
-								onclick="hideModal()"
-							>
-								<i class="bi bi-x-circle"></i> Tutup
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
 		</main>
+
+		<div class="modal" id="modal" data-animation="slideInOutTop">
+			<div class="modal-dialog">
+				<form action="" id="input-book">
+					<div class="modal-header">
+						<h2 id="modal-title">Input Data</h2>
+					</div>
+					<div class="modal-content">
+						<input type="hidden" id="book-id" value="" />
+						<div class="input">
+							<label for="book-title">Judul</label>
+							<input id="book-title" type="text" value="" required />
+						</div>
+						<div class="input">
+							<label for="book-author">Penulis</label>
+							<input id="book-author" type="text" value="" required />
+						</div>
+						<div class="input">
+							<label for="book-publisher">Penerbit</label>
+							<input id="book-publisher" type="text" value="" required />
+						</div>
+						<div class="input">
+							<label for="book-year">Tahun</label>
+							<input id="book-year" type="number" value="" required />
+						</div>
+						<div class="input-inline">
+							<label for="book-isread">Selesai dibaca</label>
+							<input id="book-isread" type="checkbox" />
+							<input id="book-isfavorite" type="checkbox" hidden />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-success d-right" type="submit">
+							<i class="fa-solid fa-floppy-disk"></i> Simpan
+						</button>
+						<button
+							class="btn btn-danger d-right"
+							type="button"
+							onclick="hideModal()"
+						>
+							<i class="fa-solid fa-xmark"></i> Tutup
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 		<script src="assets/js/main.js"></script>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</body>
