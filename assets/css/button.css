@@ -1,0 +1,44 @@
+.btn {
+  color: white;
+  border: 0;
+  border-radius: 5px;
+  display: block;
+  width: max-content;
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-green {
+  background-color: darkgreen;
+  color: white;
+}
+
+.btn-red {
+  background-color: tomato;
+  color: white;
+}
+.btn-yellow {
+  background-color: yellow;
+  color: dimgray;
+}
+
+.btn-blue {
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.btn-group {
+  text-align: center;
+}
+
+.btn-action {
+  display: inline-block;
+  margin: 4px;
+  width: 3em;
+}
+
+.btn-group-inline > button {
+  display: inline-block;
+  margin: 2px;
+}
