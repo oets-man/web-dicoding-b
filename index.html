@@ -1,9 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="./assets/favicon/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="./assets/favicon/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="./assets/favicon/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="./assets/favicon/site.webmanifest" />
+		<link
+			rel="mask-icon"
+			href="./assets/favicon/safari-pinned-tab.svg"
+			color="#5bbad5"
+		/>
+		<meta name="msapplication-TileColor" content="#da532c" />
+		<meta name="theme-color" content="#ffffff" />
+
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 		<title>MyLibrary</title>
 
 		<link rel="stylesheet" href="assets/css/app.css" />
@@ -14,19 +41,26 @@
 	</head>
 	<body>
 		<header>
-			<h1 class="header-title">Perpustakaan ID Santri</h1>
+			<h1 class="header-title">
+				<img
+					src="./assets/favicon/safari-pinned-tab.svg"
+					alt="icon"
+					width="25px"
+				/>
+				MyLibrary
+			</h1>
 			<div class="search-box">
 				<form id="search-form" class="search-form">
 					<input
 						id="search-text"
-						type="text"
+						type="search"
 						placeholder="Cari berdasarkan judul, penulis, atau penerbit"
 					/>
 					<div class="btn-group-inline">
-						<button type="submit" class="btn btn-blue">
+						<button type="submit" class="btn btn-primary">
 							<i class="bi bi-search"></i> Cari
 						</button>
-						<button type="reset" class="btn btn-red" id="reset-search">
+						<button type="reset" class="btn btn-danger" id="reset-search">
 							<i class="bi bi-arrow-clockwise"></i> Reset
 						</button>
 					</div>
@@ -39,7 +73,7 @@
 				<section class="card">
 					<div class="card-header">
 						<h2>Belum Selesai Dibaca</h2>
-						<button type="button" class="btn btn-green" id="add-book-1">
+						<button type="button" class="btn btn-success" id="add-book-a">
 							<i class="bi bi-plus-square"></i> Tambah
 						</button>
 					</div>
@@ -60,7 +94,7 @@
 				<section class="card">
 					<div class="card-header">
 						<h2>Sudah Selesai Dibaca</h2>
-						<button type="button" class="btn btn-green" id="add-book-2">
+						<button type="button" class="btn btn-success" id="add-book-b">
 							<i class="bi bi-plus-square"></i> Tambah
 						</button>
 					</div>
@@ -86,36 +120,37 @@
 							<h2 id="modal-title">Input Data</h2>
 						</div>
 						<div class="modal-content">
-							<input type="hidden" id="input-book-id" value="" />
+							<input type="hidden" id="book-id" value="" />
 							<div class="input">
-								<label for="inputBookTitle">Judul</label>
-								<input id="inputBookTitle" type="text" value="" required />
+								<label for="book-title">Judul</label>
+								<input id="book-title" type="text" value="" required />
 							</div>
 							<div class="input">
-								<label for="inputBookAuthor">Penulis</label>
-								<input id="inputBookAuthor" type="text" value="" required />
+								<label for="book-author">Penulis</label>
+								<input id="book-author" type="text" value="" required />
 							</div>
 							<div class="input">
-								<label for="inputBookPublisher">Penerbit</label>
-								<input id="inputBookPublisher" type="text" value="" required />
+								<label for="book-publisher">Penerbit</label>
+								<input id="book-publisher" type="text" value="" required />
 							</div>
 							<div class="input">
-								<label for="inputBookYear">Tahun</label>
-								<input id="inputBookYear" type="number" value="" required />
+								<label for="book-year">Tahun</label>
+								<input id="book-year" type="number" value="" required />
 							</div>
 							<div class="input-inline">
-								<label for="inputBookIsComplete">Selesai dibaca</label>
-								<input id="inputBookIsComplete" type="checkbox" />
+								<label for="book-iscomplete">Selesai dibaca</label>
+								<input id="book-iscomplete" type="checkbox" />
+								<input id="book-isfavorite" type="checkbox" hidden />
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-green d-right" type="submit">
+							<button class="btn btn-success d-right" type="submit">
 								<i class="bi bi-save"></i> Simpan
 							</button>
 							<button
-								class="btn btn-red d-right"
+								class="btn btn-danger d-right"
 								type="button"
-								onclick="modalHide()"
+								onclick="hideModal()"
 							>
 								<i class="bi bi-x-circle"></i> Tutup
 							</button>
@@ -124,7 +159,7 @@
 				</div>
 			</div>
 		</main>
-		<script src="assets/scripts/main.js"></script>
+		<script src="assets/js/main.js"></script>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</body>
 </html>
