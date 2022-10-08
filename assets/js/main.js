@@ -79,6 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
+document.addEventListener("keyup", (e) => {
+	if (e.key == "Escape" && modal) {
+		hideModal();
+	}
+});
+
 function isStorageExist() {
 	if (typeof Storage === undefined) {
 		Swal.fire({
@@ -168,7 +174,7 @@ function saveBook() {
 		statusSave = 1;
 	}
 	document.dispatchEvent(new Event(RENDER_EVENT));
-	saveDataStorage();
+	saveDataToStorage();
 }
 
 function clearInputForm(check = false) {
@@ -184,10 +190,10 @@ function clearInputForm(check = false) {
 	}
 }
 
-function saveDataStorage(message = true) {
+function saveDataToStorage(message = true) {
 	if (isStorageExist()) {
-		const parsed = JSON.stringify(books);
-		localStorage.setItem(STORAGE_KEY, parsed);
+		const stringJSON = JSON.stringify(books);
+		localStorage.setItem(STORAGE_KEY, stringJSON);
 
 		hideModal();
 		if (message) {
@@ -209,21 +215,21 @@ function saveDataStorage(message = true) {
 	}
 }
 
-function renderBooks(obj) {
+function renderBooks(books) {
 	const read = document.getElementById("table-read");
 	read.innerHTML = "";
 
 	const unread = document.getElementById("table-unread");
 	unread.innerHTML = "";
 
-	for (const bookItem of obj) {
-		const bookElement = makeBook(bookItem);
-		if (!bookItem.isRead) unread.append(bookElement);
+	for (const book of books) {
+		const bookElement = makeBook(book);
+		if (!book.isRead) unread.append(bookElement);
 		else read.append(bookElement);
 	}
 }
 
-function findBookID(id) {
+function findID(id) {
 	for (const index in books) {
 		if (books[index].id === id) {
 			return index;
@@ -242,7 +248,7 @@ function findBook(id) {
 }
 
 function deleteBook(id) {
-	const target = findBookID(id);
+	const target = findID(id);
 	if (target === -1) return;
 
 	Swal.fire({
@@ -263,21 +269,38 @@ function deleteBook(id) {
 			books.splice(target, 1);
 			document.dispatchEvent(new Event(RENDER_EVENT));
 			statusSave = -1;
-			saveDataStorage();
+			saveDataToStorage();
 		}
 	});
 }
 
-function isReadBook(id, updateTo) {
+function isReadBook(id, isRead) {
 	const target = findBook(id);
 	if (target == null) return;
-
-	let text;
-	if (updateTo) {
-		text = "Ganti status buku menjadi sudah dibaca?";
+	let message;
+	if (isRead) {
+		message = "Ganti status buku menjadi sudah dibaca?";
 	} else {
-		text = "Ganti status buku menjadi belum dibaca?";
+		message = "Ganti status buku menjadi belum dibaca?";
 	}
+	const isFavorite = target.isFavorite;
+	updateStatusBook(target, message, isRead, isFavorite);
+}
+
+function isFavoriteBook(id, isFavorite) {
+	const target = findBook(id);
+	if (target == null) return;
+	let message;
+	if (isFavorite) {
+		message = "Tambahkan ke favorit";
+	} else {
+		message = "Hapus dari favorit";
+	}
+	const isRead = target.isRead;
+	updateStatusBook(target, message, isRead, isFavorite);
+}
+
+function updateStatusBook(target, text, isRead, isFavorite) {
 	Swal.fire({
 		title: text,
 		icon: "question",
@@ -286,48 +309,18 @@ function isReadBook(id, updateTo) {
 		cancelButtonText: "Tidak",
 	}).then((result) => {
 		if (result.isConfirmed) {
-			if (updateTo) {
+			if (isRead) {
 				target.isRead = true;
 			} else {
 				target.isRead = false;
 			}
-			document.dispatchEvent(new Event(RENDER_EVENT));
-			saveDataStorage(false);
-			Swal.fire({
-				icon: "success",
-				title: "Status buku disimpan.",
-				showConfirmButton: false,
-				timer: 1500,
-			});
-		}
-	});
-}
-
-function isFavoriteBook(id, updateTo) {
-	const target = findBook(id);
-	if (target == null) return;
-
-	let text;
-	if (updateTo) {
-		text = "Tambahkan ke favorit";
-	} else {
-		text = "Hapus dari favorit";
-	}
-	Swal.fire({
-		title: text,
-		icon: "question",
-		showCancelButton: true,
-		confirmButtonText: "Ya",
-		cancelButtonText: "Tidak",
-	}).then((result) => {
-		if (result.isConfirmed) {
-			if (updateTo) {
+			if (isFavorite) {
 				target.isFavorite = true;
 			} else {
 				target.isFavorite = false;
 			}
 			document.dispatchEvent(new Event(RENDER_EVENT));
-			saveDataStorage(false);
+			saveDataToStorage(false);
 			Swal.fire({
 				icon: "success",
 				title: "Status buku disimpan.",
@@ -337,9 +330,8 @@ function isFavoriteBook(id, updateTo) {
 		}
 	});
 }
-
-function editBook(idBook) {
-	const target = findBook(idBook);
+function editBook(bookID) {
+	const target = findBook(bookID);
 	if (target == null) return;
 	// attachObject(target);
 	id.value = target.id;
@@ -426,9 +418,3 @@ function showModal(judul = "Input Buku Baru") {
 function hideModal() {
 	modal.classList.remove("is-visible");
 }
-
-document.addEventListener("keyup", (e) => {
-	if (e.key == "Escape" && modal) {
-		hideModal();
-	}
-});
