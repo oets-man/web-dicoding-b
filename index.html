@@ -34,10 +34,6 @@
 		<title>MyLibrary</title>
 
 		<link rel="stylesheet" href="assets/css/app.css" />
-		<!-- <link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-		/> -->
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -146,9 +142,14 @@
 							<input id="book-year" type="number" value="" required />
 						</div>
 						<div class="input-inline">
-							<label for="book-isread">Selesai dibaca</label>
-							<input id="book-isread" type="checkbox" />
-							<input id="book-isfavorite" type="checkbox" hidden />
+							<div class="input-checkbox">
+								<label for="book-isread">Sudah dibaca</label>
+								<input id="book-isread" type="checkbox" />
+							</div>
+							<div class="input-checkbox">
+								<label for="book-isfavorite">Buku favorit</label>
+								<input id="book-isfavorite" type="checkbox" />
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
