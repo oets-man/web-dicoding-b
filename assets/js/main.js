@@ -7,7 +7,7 @@ const STORAGE_KEY = "book-app";
 const search = document.getElementById("search-text");
 const modal = document.querySelector("#modal");
 const modalTitle = document.getElementById("modal-title");
-let statusSave = null; //0 = edit; 1 = new; -1 = delete
+let statusSave = null; //0 = edit; 1 = baru; -1 = hapus
 
 // input
 const id = document.getElementById("book-id");
@@ -51,27 +51,27 @@ document.addEventListener("DOMContentLoaded", function () {
 		saveBook();
 	});
 
-	//form search
+	//form pencarian
 	const searchForm = document.getElementById("search-form");
 	searchForm.addEventListener("submit", function (event) {
 		event.preventDefault();
 		document.dispatchEvent(new Event(RENDER_EVENT));
 	});
 
-	// reset search
+	// reset pencarian
 	const resetSearch = document.getElementById("reset-search");
 	resetSearch.addEventListener("click", function () {
 		renderBooks(books);
 	});
 
-	//add new complete
+	//add new read
 	const addBookRead = document.getElementById("add-book-a");
 	addBookRead.addEventListener("click", function () {
 		showModal();
 		clearInputForm(false);
 	});
 
-	//add new uncomplete
+	//add new unread
 	const addBookUnread = document.getElementById("add-book-b");
 	addBookUnread.addEventListener("click", function () {
 		showModal();
