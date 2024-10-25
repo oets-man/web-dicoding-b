@@ -1,173 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="./assets/favicon/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="./assets/favicon/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="./assets/favicon/favicon-16x16.png"
-		/>
-		<link rel="manifest" href="./assets/favicon/site.webmanifest" />
-		<link
-			rel="mask-icon"
-			href="./assets/favicon/safari-pinned-tab.svg"
-			color="#5bbad5"
-		/>
-		<meta name="msapplication-TileColor" content="#da532c" />
-		<meta name="theme-color" content="#ffffff" />
 
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+	<link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png" />
+	<link rel="manifest" href="./assets/favicon/site.webmanifest" />
+	<link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+	<meta name="msapplication-TileColor" content="#da532c" />
+	<meta name="theme-color" content="#ffffff" />
 
-		<title>MyLibrary</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<link rel="stylesheet" href="assets/css/app.css" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"
-		/>
-	</head>
-	<body>
-		<header>
-			<h1 class="header-title">
-				<img
-					src="./assets/favicon/safari-pinned-tab.svg"
-					alt="icon"
-					width="25px"
-				/>
-				MyLibrary
-			</h1>
-			<div class="search-box">
-				<form id="search-form" class="search-form">
-					<input
-						id="search-text"
-						type="search"
-						placeholder="Cari berdasarkan judul, penulis, atau penerbit"
-					/>
-					<div class="btn-group-inline">
-						<button type="submit" class="btn btn-primary">
-							<i class="fa-solid fa-magnifying-glass"></i> Cari
-						</button>
-						<button type="reset" class="btn btn-danger" id="reset-search">
-							<i class="fa-solid fa-rotate-left"></i> Reset
-						</button>
-					</div>
-				</form>
-			</div>
-		</header>
+	<title>MyLibrary</title>
 
-		<main>
-			<div class="container">
-				<section class="card">
-					<div class="card-header">
-						<h2>Belum Selesai Dibaca</h2>
-						<button type="button" class="btn btn-success" id="add-book-a">
-							<i class="fa-regular fa-plus"></i> Tambah
-						</button>
-					</div>
-					<div id="" class="card-body">
-						<table>
-							<thead>
-								<th>Judul</th>
-								<th>Penulis</th>
-								<th>Penerbit</th>
-								<th>Tahun</th>
-								<th></th>
-							</thead>
-							<tbody id="table-unread"></tbody>
-						</table>
-					</div>
-				</section>
+	<link rel="stylesheet" href="assets/css/app.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
 
-				<section class="card">
-					<div class="card-header">
-						<h2>Sudah Selesai Dibaca</h2>
-						<button type="button" class="btn btn-success" id="add-book-b">
-							<i class="fa-regular fa-plus"></i> Tambah
-						</button>
-					</div>
-					<div id="" class="card-body">
-						<table>
-							<thead>
-								<th>Judul</th>
-								<th>Penulis</th>
-								<th>Penerbit</th>
-								<th>Tahun</th>
-								<th></th>
-							</thead>
-							<tbody id="table-read"></tbody>
-						</table>
-					</div>
-				</section>
-			</div>
-		</main>
-
-		<div class="modal" id="modal" data-animation="slideInOutTop">
-			<div class="modal-dialog">
-				<form action="" id="input-book">
-					<div class="modal-header">
-						<h2 id="modal-title">Input Data</h2>
-					</div>
-					<div class="modal-content">
-						<input type="hidden" id="book-id" value="" />
-						<div class="input">
-							<label for="book-title">Judul</label>
-							<input id="book-title" type="text" value="" required />
-						</div>
-						<div class="input">
-							<label for="book-author">Penulis</label>
-							<input id="book-author" type="text" value="" required />
-						</div>
-						<div class="input">
-							<label for="book-publisher">Penerbit</label>
-							<input id="book-publisher" type="text" value="" required />
-						</div>
-						<div class="input">
-							<label for="book-year">Tahun</label>
-							<input id="book-year" type="number" value="" required />
-						</div>
-						<div class="input-inline">
-							<div class="input-checkbox">
-								<label for="book-isread">Sudah dibaca</label>
-								<input id="book-isread" type="checkbox" />
-							</div>
-							<div class="input-checkbox">
-								<label for="book-isfavorite">Buku favorit</label>
-								<input id="book-isfavorite" type="checkbox" />
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-success d-right" type="submit">
-							<i class="fa-solid fa-floppy-disk"></i> Simpan
-						</button>
-						<button
-							class="btn btn-danger d-right"
-							type="button"
-							onclick="hideModal()"
-						>
-							<i class="fa-solid fa-xmark"></i> Tutup
-						</button>
-					</div>
-				</form>
-			</div>
+<body>
+	<header>
+		<h1 class="header-title">
+			<img src="./assets/favicon/safari-pinned-tab.svg" alt="icon" width="25px" />
+			MyLibrary
+		</h1>
+		<div class="search-box">
+			<form id="search-form" class="search-form">
+				<input id="search-text" type="search" placeholder="Cari berdasarkan judul, penulis, atau penerbit" />
+				<div class="btn-group-inline">
+					<button type="submit" class="btn btn-primary">
+						<i class="fa-solid fa-magnifying-glass"></i> Cari
+					</button>
+					<button type="reset" class="btn btn-danger" id="reset-search">
+						<i class="fa-solid fa-rotate-left"></i> Reset
+					</button>
+				</div>
+			</form>
 		</div>
-		<script src="assets/js/main.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	</body>
+	</header>
+
+	<main>
+		<div class="container">
+			<section class="card">
+				<div class="card-header">
+					<h2>Belum Selesai Dibaca</h2>
+					<button type="button" class="btn btn-success" id="add-book-a">
+						<i class="fa-regular fa-plus"></i> Tambah
+					</button>
+				</div>
+				<div id="" class="card-body">
+					<table>
+						<thead>
+							<th>Judul</th>
+							<th>Penulis</th>
+							<th>Penerbit</th>
+							<th>Tahun</th>
+							<th></th>
+						</thead>
+						<tbody id="table-unread"></tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="card">
+				<div class="card-header">
+					<h2>Sudah Selesai Dibaca</h2>
+					<button type="button" class="btn btn-success" id="add-book-b">
+						<i class="fa-regular fa-plus"></i> Tambah
+					</button>
+				</div>
+				<div id="" class="card-body">
+					<table>
+						<thead>
+							<th>Judul</th>
+							<th>Penulis</th>
+							<th>Penerbit</th>
+							<th>Tahun</th>
+							<th></th>
+						</thead>
+						<tbody id="table-read"></tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<div class="modal" id="modal" data-animation="slideInOutTop">
+		<div class="modal-dialog">
+			<form action="" id="input-book">
+				<div class="modal-header">
+					<h2 id="modal-title">Input Data</h2>
+				</div>
+				<div class="modal-content">
+					<input type="hidden" id="book-id" value="" />
+					<div class="input">
+						<label for="book-title">Judul</label>
+						<input id="book-title" type="text" value="" required />
+					</div>
+					<div class="input">
+						<label for="book-author">Penulis</label>
+						<input id="book-author" type="text" value="" required />
+					</div>
+					<div class="input">
+						<label for="book-publisher">Penerbit</label>
+						<input id="book-publisher" type="text" value="" required />
+					</div>
+					<div class="input">
+						<label for="book-year">Tahun</label>
+						<input id="book-year" type="number" value="" required />
+					</div>
+					<div class="input-inline">
+						<div class="input-checkbox">
+							<label for="book-isread">Sudah dibaca</label>
+							<input id="book-isread" type="checkbox" />
+						</div>
+						<div class="input-checkbox">
+							<label for="book-isfavorite">Buku favorit</label>
+							<input id="book-isfavorite" type="checkbox" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success d-right" type="submit">
+						<i class="fa-solid fa-floppy-disk"></i> Simpan
+					</button>
+					<button class="btn btn-danger d-right" type="button" onclick="hideModal()">
+						<i class="fa-solid fa-xmark"></i> Tutup
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="assets/js/main.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
 </html>
