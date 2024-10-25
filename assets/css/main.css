@@ -1,120 +1,128 @@
 :root {
-	--title: rgb(56, 70, 50);
+  --title: rgb(56, 70, 50);
 }
 
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
 }
 
 input,
 button {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 header {
-	text-align: center;
-	padding: 12px;
-	background-color: #f4f3ee;
-	margin-bottom: 16px;
+  text-align: center;
+  padding: 12px;
+  background-color: #f4f3ee;
+  margin-bottom: 16px;
 }
 .header-title {
-	color: var(--title);
-	margin-bottom: 16px;
+  color: var(--title);
+  margin-bottom: 16px;
+  font-weight: 500;
 }
 
 .search-box {
-	max-width: 40%;
-	box-shadow: 0 0 0 1px rgb(53 72 91 / 7%), 0 2px 2px rgb(0 0 0 / 1%),
-		0 4px 4px rgb(0 0 0 / 2%), 0 10px 8px rgb(0 0 0 / 3%),
-		0 15px 15px rgb(0 0 0 / 3%), 0 30px 30px rgb(0 0 0 / 4%),
-		0 70px 65px rgb(0 0 0 / 5%);
-	padding: 10px 20px;
-	background-color: #fefee3;
-	border-radius: 5px;
-	margin: auto;
+  max-width: 40%;
+  box-shadow: 0 0 0 1px rgb(53 72 91 / 7%), 0 2px 2px rgb(0 0 0 / 1%),
+    0 4px 4px rgb(0 0 0 / 2%), 0 10px 8px rgb(0 0 0 / 3%),
+    0 15px 15px rgb(0 0 0 / 3%), 0 30px 30px rgb(0 0 0 / 4%),
+    0 70px 65px rgb(0 0 0 / 5%);
+  padding: 10px 20px;
+  background-color: #fefee3;
+  border-radius: 5px;
+  margin: auto;
 }
 
 .search-form {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr auto;
-	grid-gap: 10px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 10px;
 }
 .search-form > input {
-	padding: 8px;
-	border-radius: 5px;
-	border-color: darkgray;
-	border-width: 1px;
+  padding: 8px;
+  border-radius: 5px;
+  border-color: darkgray;
+  border-width: 1px;
 }
 
 body {
-	background-color: #8a817c;
+  background-color: #8a817c;
 }
 
 main {
-	width: 70%;
-	margin: 0 auto;
-	padding: 16px 8px;
-	background-color: #f4f3ee;
+  width: 70%;
+  margin: 0 auto;
+  padding: 16px 8px;
+  background-color: #f4f3ee;
 }
 
 .container {
-	display: flex;
+  display: flex;
 }
 
 .card {
-	box-shadow: 0 0 0 1px rgb(53 72 91 / 7%), 0 2px 2px rgb(0 0 0 / 1%),
-		0 4px 4px rgb(0 0 0 / 2%), 0 10px 8px rgb(0 0 0 / 3%),
-		0 15px 15px rgb(0 0 0 / 3%), 0 30px 30px rgb(0 0 0 / 4%),
-		0 70px 65px rgb(0 0 0 / 5%);
-	padding: 20px;
-	/* margin-top: 20px; */
-	margin: 8px;
-	background-color: #fefee3;
-	overflow-x: hidden;
-	width: 100%;
-	color: rgb(78, 72, 72);
+  box-shadow: 0 0 0 1px rgb(53 72 91 / 7%), 0 2px 2px rgb(0 0 0 / 1%),
+    0 4px 4px rgb(0 0 0 / 2%), 0 10px 8px rgb(0 0 0 / 3%),
+    0 15px 15px rgb(0 0 0 / 3%), 0 30px 30px rgb(0 0 0 / 4%),
+    0 70px 65px rgb(0 0 0 / 5%);
+  padding: 20px;
+  /* margin-top: 20px; */
+  margin: 8px;
+  background-color: #fefee3;
+  overflow-x: hidden;
+  width: 100%;
+  color: rgb(78, 72, 72);
 }
 
 .card-header {
-	margin-bottom: 8px;
-	overflow: auto;
+  margin-bottom: 8px;
+  overflow: auto;
 }
 
 .card-header > h2 {
-	float: left;
-	color: var(--title);
+  float: left;
+  color: var(--title);
+  font-weight: 400;
 }
 
 .card-header > button {
-	float: right;
+  float: right;
 }
 
 .card-body {
-	overflow-x: scroll;
+  overflow-x: scroll;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
-	width: 100%;
-	border: 1px solid #ddd;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
 }
 
 th,
 td {
-	text-align: left;
-	padding: 8px;
+  text-align: left;
+  padding: 8px;
 }
+th {
+  font-weight: 400;
+  color: #f4f3ee;
+}
+
 tr:nth-child(even) {
-	background-color: #faedcd;
+  background-color: #faedcd;
 }
 thead {
-	background-color: #d4a373;
+  background-color: #d4a373;
 }
